@@ -8,4 +8,5 @@ from servicio import views
 
 urlpatterns = [
     re_path(r'^servicios/$', views.ServicioList.as_view() ),
+    re_path(r'^servicio/(?P<id>\d+)$', views.ServicioDetail.as_view() ),
 ]

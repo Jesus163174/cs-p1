@@ -31,3 +31,36 @@ class ServicioList(APIView):
             return Response(datas)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
+
+class ServicioDetail(APIView):
+    def get_object(self, id):
+        try:
+            return Servicio.objects.get(pk=id, delete=False)
+        except Servicio.DoesNotExist:
+            return False
+    
+    def get(self, request, id, format=None):
+        example = self.get_object(id)
+        if example != False:
+            serializer = ServicioSerializers(example)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, id, format=None):
+        Servicio.objects.get(pk=id).update(delete=True)
+        return Response("ok")
+    
+    def put(self, request, id, format=None):
+        example = self.get_object(id)
+        if example != False:
+            serializer = ServicioSerializers(example, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                datas = serializer.data
+                return Response(datas)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
