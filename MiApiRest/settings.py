@@ -103,7 +103,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'mopa251946',
         'HOST': '192.168.0.15',
-        'PORT': '3307',
+        'PORT': '3308',
     }
 }
 

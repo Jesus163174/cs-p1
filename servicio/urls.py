@@ -4,6 +4,8 @@ from django.conf.urls import include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 
-
 from servicio import views
 
+urlpatterns = [
+    re_path(r'^servicios/$', views.ServicioList.as_view() ),
+]
